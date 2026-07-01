@@ -1,8 +1,7 @@
-data
-results
-**/__pycache__
-**/.ipynb_checkpoints
-.vscode
-temp
-.env*
-rebuttal_exp
+```gitignore
+# Dependencies
+node_modules/
+
+# Editors
+.vscode/
+```
